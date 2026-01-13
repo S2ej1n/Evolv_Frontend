@@ -2,10 +2,8 @@
 
 export default function Customers() {
   return (
-    <div className="p-10">
-      <div className="p-6 bg-blue-500 text-white font-bold rounded-xl shadow-lg">
+    <div className="p-6 bg-blue-500 text-white font-bold rounded-xl shadow-lg">
         Tailwind CSS가 잘 작동하고 있습니다! 
-      </div>
     </div>
   );
 }

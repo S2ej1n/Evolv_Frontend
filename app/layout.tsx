@@ -30,7 +30,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Header />
-        <QueryProvider>{children}</QueryProvider>
+        <main className="p-10 pt-24">
+          <QueryProvider>{children}</QueryProvider>
+        </main>
       </body>
     </html>
   );
