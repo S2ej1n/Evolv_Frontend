@@ -1,9 +1,14 @@
 // Main 고객 리스트 페이지
 
+import ContentBox from "@/components/ContentBox";
+
+
 export default function Customers() {
   return (
-    <div className="p-6 bg-blue-500 text-white font-bold rounded-xl shadow-lg">
-        Tailwind CSS가 잘 작동하고 있습니다! 
-    </div>
+    <main>
+      <ContentBox>
+        <h1 className="text-lg font-semibold">고객 리스트</h1>
+      </ContentBox>
+    </main>
   );
 }
