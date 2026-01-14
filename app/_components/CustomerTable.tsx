@@ -17,7 +17,7 @@ type Props = {
 
 export default function CustomerTable({ rows }: Props) {
   return (
-    <div className="w-full overflow-hidden border border-[#EEEEEE] bg-white my-5">
+    <div className="w-full overflow-hidden border border-[#EEEEEE] bg-white mt-3 mb-5">
       <Table>
         <TableHeader>
           <TableRow className="border-b border-[#EEEEEE] bg-[#F9F9F9]">

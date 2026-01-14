@@ -19,9 +19,10 @@ export default function Customers() {
   const pageData = MOCK_CUSTOMERS.slice(start, end);
   const totalPages = Math.ceil(MOCK_CUSTOMERS.length / PAGE_SIZE);
 
-  const total = 100
-  const from = 1
-  const to = 9
+  // 상단 표시 문구
+  const total = MOCK_CUSTOMERS.length;
+  const from = total === 0 ? 0 : start + 1;
+  const to = Math.min(end, total);
 
   return (
     <main>
