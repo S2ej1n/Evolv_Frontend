@@ -9,6 +9,7 @@ import { MOCK_CUSTOMERS } from '@/mocks/customers';
 import CustomerTable from './_components/CustomerTable';
 import SearchBar from './_components/SearchBar';
 import { getPagination } from '@/util/pagination';
+import { searchFilter } from '@/util/searchFilter';
 
 export default function Customers() {
   const [prePage, setprePage] = useState(1);
@@ -21,25 +22,7 @@ export default function Customers() {
   
   // 검색어 필터링 - 새로운 data 배열 만들어 리턴
   const filterCustomers = useMemo(()=>{
-    // 공백 제거, 대소문자 구분 제거
-    const keyword = searchKey.trim().toLocaleLowerCase()
-    if (!keyword) return MOCK_CUSTOMERS;
-
-    return MOCK_CUSTOMERS.filter((p) => {
-      const name = String(p.name ?? '').toLowerCase();
-      const email = String(p.email ?? '').toLowerCase();
-      const phone = String(p.phone ?? '').toLowerCase();
-      const company = String(p.company ?? '').toLowerCase();
-      const created_at = String(p.created_at ?? '').toLowerCase();
-
-      return(
-        name.includes(keyword) || email.includes(keyword) || 
-        phone.includes(keyword) ||company.includes(keyword) || 
-        created_at.includes(keyword)
-      );
-    }
-    );
-
+    return searchFilter(MOCK_CUSTOMERS, searchKey);
   },[searchKey])
 
   // 검색창에서 엔터를 처야 반영되게하는 함수
