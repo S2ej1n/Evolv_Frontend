@@ -60,6 +60,7 @@ export default function Customers() {
         value={inputValue}
         onChange={setInputValue}
         onSubmit={handleEnterSearchValue}
+        total={total}
       />
 
       <ContentBox>

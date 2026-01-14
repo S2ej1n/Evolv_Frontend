@@ -9,9 +9,10 @@ type Props = {
     onSubmit: ()=>void;
     className?: string;
     placeholder?: string;
+    total: number;
 }
 
-export default function SearchBar({value, onChange, onSubmit, className, placeholder = '검색어를 입력하세요...'}:Props) {
+export default function SearchBar({value, onChange, onSubmit, className, placeholder = '검색어를 입력하고 enter를 누르세요...', total}:Props) {
   return (
     <form 
       onSubmit={(e)=>{
@@ -31,7 +32,7 @@ export default function SearchBar({value, onChange, onSubmit, className, placeho
             className="h-auto border-0 p-0 shadow-none focus-visible:ring-0"
         />
         <span className="ml-auto whitespace-nowrap text-sm text-gray-500">
-            results
+            {total} results
       </span>
     </form>
   )
