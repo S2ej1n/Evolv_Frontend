@@ -4,16 +4,32 @@
 import { useState } from 'react';
 import ContentBox from "@/components/ContentBox";
 import Pagination from "@/components/Pagination";
+// -- 목데이터로 페이지네이션 테스트
+import { MOCK_CUSTOMERS } from '@/mocks/customers';
 
 export default function Customers() {
   const [prePage, setprePage] = useState(1);
-  const totalPages = 5;
+
+  const PAGE_SIZE = 9;
+
+  const start = (prePage - 1) * PAGE_SIZE;
+  const end = start + PAGE_SIZE;
+
+  const pageData = MOCK_CUSTOMERS.slice(start, end);
+  const totalPages = Math.ceil(MOCK_CUSTOMERS.length / PAGE_SIZE);
 
   return (
     <main>
-      <ContentBox>
-        <h1 className="text-lg font-semibold">고객 리스트</h1>
+      <h1 className="text-lg font-semibold">고객 리스트 조회</h1>
 
+      <ContentBox>
+        <div>
+          {pageData.map((c)=>(
+            <div key={c.customer_id}>
+              {c.name}
+            </div>
+          ))}
+        </div>
         <Pagination prePage={prePage} totalPages={totalPages} onChange={setprePage}/>
       </ContentBox>
     </main>
