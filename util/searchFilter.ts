@@ -1,4 +1,4 @@
-// 검색어 필터 함수
+// [검색어 필터 함수]
 import type { Customer } from "@/types/customer";
 
 export function searchFilter(data: Customer[], searchKey: string): Customer[] {

@@ -12,7 +12,7 @@ export type CustomerDetail = {
     customer_id: string;
     address: string;
     industry: string;
-    annual_revenue: string;
+    annual_revenue: number;
     employee_count: number;
     last_contact_date: string;
     notes: string;

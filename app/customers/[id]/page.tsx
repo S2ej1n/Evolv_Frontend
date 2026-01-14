@@ -7,6 +7,10 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import InfoCard from "@/components/InfoCard";
+
+import { formatDate, getDaysAgo, formatDateTime, formatKRW } from "@/util/format";
+
+// -- 목데이터 사용
 import {customer} from "@/mocks/detailCustomer";
 
 export default function Detail() {
@@ -36,7 +40,7 @@ export default function Detail() {
           {/* 우측 */}
           <div className="shrink-0 text-right">
             <Button className="text-white rounded-xl 
-              bg-gradient-to-r from-[#8B3DFF] via-[#6A4CFF] to-[#3B6BFF]
+              bg-gradient-to-r from-[#3d7eff] via-[#3288e4] to-[#6d87d7]
               px-3 shadow-sm cursor-pointer 
               transition hover:brightness-120 active:scale-[0.98]">
               <Sparkles className="h-4 w-4"/>
@@ -46,10 +50,10 @@ export default function Detail() {
             <div className="mt-4">
               <p className="text-xs text-muted-foreground">최근 컨택일</p>
               <p className="mt-1 font-bold">
-                {customer.details.last_contact_date}
+                 {formatDate(customer.details.last_contact_date)}
               </p>
               <p className="mt-1 text-xs font-semibold text-orange-500">
-                일 전
+                {getDaysAgo(customer.details.last_contact_date)}일 전
               </p>
             </div>
           </div>
@@ -99,7 +103,7 @@ export default function Detail() {
             <InfoCard
               icon={<DollarSign className="h-5 w-5 text-muted-foreground" />}
               label="연간 매출"
-              value={customer.details.annual_revenue}
+              value={formatKRW(customer.details.annual_revenue)}
             />
             <InfoCard
               icon={<Users className="h-5 w-5 text-muted-foreground" />}
@@ -129,7 +133,7 @@ export default function Detail() {
             <InfoCard className="mt-2"
               icon={<Calendar className="h-5 w-5 text-muted-foreground" />}
               label="고객 등록일"
-              value={customer.created_at}
+              value={formatDateTime(customer.created_at)}
             />
 
             <div className="mt-2 flex flex-wrap items-center justify-between gap-6 text-sm px-3">
