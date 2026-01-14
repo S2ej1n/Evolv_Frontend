@@ -45,6 +45,7 @@ export default function Customers() {
   // 검색창에서 엔터를 처야 반영되게하는 함수
   const handleEnterSearchValue = () => {
     setSearchKey(inputValue);
+    setprePage(1); // 검색어 초기화시 페이지 1로 초기화
   }
 
   const { pageData, totalPages, total, from, to } = getPagination({
