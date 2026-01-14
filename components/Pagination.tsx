@@ -18,7 +18,7 @@ export default function Pagination({ prePage, totalPages, onChange }:Props) {
     if (totalPages <= 1) return null;
 
     // 페이지 번호 목록 (total로 계산하도록 수정예정)
-    const pages = [1,2,3,4,5]
+    const pages = Array.from({length: totalPages}, (_,i) => i+1 );
 
     // 이전과 다음 버튼 제한
     const canPrev = prePage > 1;    // 1보다 크면 이동가능
