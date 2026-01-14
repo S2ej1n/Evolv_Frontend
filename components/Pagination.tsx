@@ -7,22 +7,56 @@ import {
     PaginationLink, PaginationNext, PaginationPrevious 
 } from "./ui/pagination";
 
-export default function Pagination() {
-  return (
+type Props = {
+    prePage: number;    // 현재 페이지
+    totalPages: number  // 전체 페이지 수
+    onChange: (p: number) => void;  // 현재 페이지 변경
+}
+
+export default function Pagination({ prePage, totalPages, onChange }:Props) {
+  
+    // 페이지 번호 목록 (total로 계산하도록 수정예정)
+    const pages = [1,2,3,4,5]
+
+    // 이전과 다음 버튼 제한
+    const canPrev = prePage > 1;    // 1보다 크면 이동가능
+    const canNext = prePage < totalPages;   // 토탈보다 작으면 이동가능
+
+    return (
     <MAINPagination>
         <PaginationContent>
+            {/* 이전 버튼 */}
             <PaginationItem>
-                <PaginationPrevious />
+                <button
+                    onClick={() => onChange(prePage - 1)}
+                    disabled={!canPrev}
+                >
+                    <PaginationPrevious />
+                </button>
             </PaginationItem>
 
-            <PaginationItem>
-                <PaginationLink isActive>1</PaginationLink>
-            </PaginationItem>
+            {/* 번호 선택 */}
+            {pages.map((p) => (
+                <PaginationItem key={p}>
+                    <button onClick={() => onChange(p)}>
+                        <PaginationLink isActive={p==prePage}>
+                            {p}
+                        </PaginationLink>
+                    </button>
+                </PaginationItem>
+            ))}
 
 
+            {/* 다음 버튼 */}
             <PaginationItem>
-                <PaginationNext />
+                <button
+                    onClick={() => onChange(prePage + 1)}
+                    disabled={!canNext}
+                >
+                    <PaginationNext />
+                </button>
             </PaginationItem>
+
         </PaginationContent>
     </MAINPagination>
   )
