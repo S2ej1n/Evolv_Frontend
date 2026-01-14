@@ -1,24 +1,33 @@
 // [공통 컴포넌트] 모달창
 
+import { ReactNode } from 'react';
 import { Dialog, DialogTrigger, DialogContent, DialogHeader,
   DialogTitle, DialogDescription } from "@/components/ui/dialog"
 
-export function Modal() {
+type ModalProps = {
+  trigger: ReactNode;
+  title?: string;
+  description?: string;
+  children: ReactNode;
+};
+
+export function Modal({trigger, title, description, children} : ModalProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button>모달 열기</button>
+        {trigger}
       </DialogTrigger>
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>AI 분석</DialogTitle>
+          <DialogTitle>{title}</DialogTitle>
           <DialogDescription>
-            AI 분석에는 30초에서 1분 사이의 랜덤한 시간이 소요됩니다. 잠시만 기다려주세요
+            {description}
           </DialogDescription>
         </DialogHeader>
 
-        <div>여기에 컨텐츠</div>
+        {children}
+        
       </DialogContent>
     </Dialog>
   )
