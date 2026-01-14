@@ -46,9 +46,9 @@ export default function Customers() {
 
   return (
     <main>
-      <h1 className="text-lg font-bold">고객 리스트 조회</h1>
+      <h1 className="text-xl font-extrabold">고객 리스트 조회</h1>
 
-      <SearchBar className='my-3'
+      <SearchBar className='mt-3'
         value={inputValue}
         onChange={setInputValue}
         onSubmit={handleEnterSearchValue}

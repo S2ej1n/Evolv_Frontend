@@ -11,7 +11,7 @@ type ContentBoxProps = {
 export default function ContentBox({children, className}: ContentBoxProps) {
   return (
     <div className={cn(
-        "bg-white border border-[#EEEEEE] shadow-[0_5px_9.3px_rgba(188,188,188,0.25)] p-6",
+        "bg-white border border-[#EEEEEE] shadow-[0_5px_9.3px_rgba(188,188,188,0.25)] p-6 my-3",
         className
       )}
     >
