@@ -1,7 +1,8 @@
 // Main 고객 리스트 페이지
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import ContentBox from "@/components/ContentBox";
 import Pagination from "@/components/Pagination";
 // -- 목데이터로 페이지네이션 테스트
@@ -10,10 +11,12 @@ import CustomerTable from './_components/CustomerTable';
 import SearchBar from './_components/SearchBar';
 import { getPagination } from '@/util/pagination';
 import { searchFilter } from '@/util/searchFilter';
+import type { Customer } from '@/types/customer';
 
 export default function Customers() {
-  const [prePage, setprePage] = useState(1);
+  const router = useRouter();
 
+  const [prePage, setprePage] = useState(1);
   // 타이핑으로 입력 받는 값 -> 이걸 searchKey에 넣어줄것임
   const [inputValue, setInputValue] = useState('')
   const [searchKey, setSearchKey] = useState(''); // 검색어 (실제 반영)
@@ -35,12 +38,17 @@ export default function Customers() {
     data: filterCustomers, prePage:prePage, PAGE_SIZE: PAGE_SIZE,
   });
 
+  // 페이지 이동 함수 (push 사용)
+  const handleRowClick = useCallback((row: Customer) => {
+    router.push(`/customers/${row.customer_id}`);
+  }, [router]);
+
 
   return (
     <main>
-      <h1 className="text-lg font-bold">고객 리스트 조회</h1>
+      <h1 className="text-xl font-extrabold">고객 리스트 조회</h1>
 
-      <SearchBar className='my-3'
+      <SearchBar className='mt-3'
         value={inputValue}
         onChange={setInputValue}
         onSubmit={handleEnterSearchValue}
@@ -52,7 +60,7 @@ export default function Customers() {
             전체 {total}명 중 {from}-{to}명 표시
         </p>
 
-        <CustomerTable rows={pageData}/>
+        <CustomerTable rows={pageData} onRowClick={handleRowClick}/>
 
         <Pagination prePage={prePage} totalPages={totalPages} onChange={setprePage}/>
 
