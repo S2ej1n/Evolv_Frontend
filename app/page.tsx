@@ -8,22 +8,16 @@ import Pagination from "@/components/Pagination";
 import { MOCK_CUSTOMERS } from '@/mocks/customers';
 import CustomerTable from './_components/CustomerTable';
 import SearchBar from './_components/SearchBar';
+import { getPagination } from '@/util/pagination';
 
 export default function Customers() {
   const [prePage, setprePage] = useState(1);
-
   const PAGE_SIZE = 9;
+  
+  const { pageData, totalPages, total, from, to } = getPagination({
+    data: MOCK_CUSTOMERS, prePage:prePage, PAGE_SIZE: PAGE_SIZE,
+  });
 
-  const start = (prePage - 1) * PAGE_SIZE;
-  const end = start + PAGE_SIZE;
-
-  const pageData = MOCK_CUSTOMERS.slice(start, end);
-  const totalPages = Math.ceil(MOCK_CUSTOMERS.length / PAGE_SIZE);
-
-  // 상단 표시 문구
-  const total = MOCK_CUSTOMERS.length;
-  const from = total === 0 ? 0 : start + 1;
-  const to = Math.min(end, total);
 
   return (
     <main>
