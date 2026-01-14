@@ -14,7 +14,7 @@ export const customer: CustomerDetail = {
       industry: 'IT 컨설팅',
       annual_revenue: '3000000000',
       employee_count: 30,
-      last_contact_date: '2025-12-15T14:00:00Z',
+      last_contact_date: '2025-11-15T14:00:00Z',
       notes: '신규 프로젝트 논의 중',
     },
   };

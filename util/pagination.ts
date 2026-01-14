@@ -1,4 +1,4 @@
-// 페이지네이션 함수 정의
+// [페이지네이션 함수] 정의
 
 // 리턴 타입 정의
 export type PaginationReturn<T> = {
