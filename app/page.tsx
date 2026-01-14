@@ -6,6 +6,7 @@ import ContentBox from "@/components/ContentBox";
 import Pagination from "@/components/Pagination";
 // -- 목데이터로 페이지네이션 테스트
 import { MOCK_CUSTOMERS } from '@/mocks/customers';
+import CustomerTable from './_components/CustomerTable';
 
 export default function Customers() {
   const [prePage, setprePage] = useState(1);
@@ -18,19 +19,23 @@ export default function Customers() {
   const pageData = MOCK_CUSTOMERS.slice(start, end);
   const totalPages = Math.ceil(MOCK_CUSTOMERS.length / PAGE_SIZE);
 
+  const total = 100
+  const from = 1
+  const to = 9
+
   return (
     <main>
       <h1 className="text-lg font-semibold">고객 리스트 조회</h1>
 
       <ContentBox>
-        <div>
-          {pageData.map((c)=>(
-            <div key={c.customer_id}>
-              {c.name}
-            </div>
-          ))}
-        </div>
+        <p className="text-sm w- text-gray-500">
+            전체 {total}명 중 {from}-{to}명 표시
+        </p>
+
+        <CustomerTable rows={pageData}/>
+
         <Pagination prePage={prePage} totalPages={totalPages} onChange={setprePage}/>
+
       </ContentBox>
     </main>
   );
