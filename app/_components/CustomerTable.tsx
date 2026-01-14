@@ -13,9 +13,10 @@ import {
 
 type Props = {
   rows: Customer[];
+  onRowClick?: (row: Customer) => void;
 };
 
-export default function CustomerTable({ rows }: Props) {
+export default function CustomerTable({ rows, onRowClick }: Props) {
   return (
     <div className="w-full overflow-hidden border border-[#EEEEEE] bg-white mt-3 mb-5">
       <Table>
@@ -31,7 +32,11 @@ export default function CustomerTable({ rows }: Props) {
 
         <TableBody>
           {rows.map((c) => (
-            <TableRow key={c.customer_id} className="border-b border-[#EEEEEE] last:border-b-0">
+            <TableRow key={c.customer_id} 
+            className="border-b border-[#EEEEEE] last:border-b-0
+            cursor-pointer hover:bg-gray-50"
+            onClick={() => onRowClick?.(c)}
+            >
               <TableCell className="font-semibold">{c.name}</TableCell>
               <TableCell className="text-gray-600">{c.email}</TableCell>
               <TableCell className="text-gray-600">{c.phone}</TableCell>
