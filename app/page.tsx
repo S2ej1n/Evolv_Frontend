@@ -7,6 +7,7 @@ import Pagination from "@/components/Pagination";
 // -- 목데이터로 페이지네이션 테스트
 import { MOCK_CUSTOMERS } from '@/mocks/customers';
 import CustomerTable from './_components/CustomerTable';
+import SearchBar from './_components/SearchBar';
 
 export default function Customers() {
   const [prePage, setprePage] = useState(1);
@@ -26,7 +27,9 @@ export default function Customers() {
 
   return (
     <main>
-      <h1 className="text-lg font-semibold">고객 리스트 조회</h1>
+      <h1 className="text-lg font-bold">고객 리스트 조회</h1>
+
+      <SearchBar className='my-3' />
 
       <ContentBox>
         <p className="text-sm w- text-gray-500">
