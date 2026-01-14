@@ -1,14 +1,12 @@
 // 고객 상세 정보 조회
 import ContentBox from "@/components/ContentBox"
-import { Building2, Mail, Phone, Sparkles, FileText, MapPin, Copy, 
-  Map, BriefcaseBusiness, DollarSign, Users, Calendar, ChevronUp,
-} from 'lucide-react';
+import { Building2, Mail, Phone, FileText, MapPin, BriefcaseBusiness, DollarSign, Users, Calendar, ChevronUp } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import InfoCard from "@/components/InfoCard";
-
 import { formatDate, getDaysAgo, formatDateTime, formatKRW } from "@/util/format";
+import AiModal from "./_components/AiModal";
 
 // -- 목데이터 사용
 import {customer} from "@/mocks/detailCustomer";
@@ -39,13 +37,7 @@ export default function Detail() {
 
           {/* 우측 */}
           <div className="shrink-0 text-right">
-            <Button className="text-white rounded-xl 
-              bg-gradient-to-r from-[#3d7eff] via-[#3288e4] to-[#6d87d7]
-              px-3 shadow-sm cursor-pointer 
-              transition hover:brightness-120 active:scale-[0.98]">
-              <Sparkles className="h-4 w-4"/>
-              AI 분석
-            </Button>
+            <AiModal />
 
             <div className="mt-4">
               <p className="text-xs text-muted-foreground">최근 컨택일</p>
