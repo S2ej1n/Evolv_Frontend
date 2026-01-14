@@ -14,7 +14,9 @@ type Props = {
 }
 
 export default function Pagination({ prePage, totalPages, onChange }:Props) {
-  
+
+    if (totalPages <= 1) return null;
+    
     // 페이지 번호 목록 (total로 계산하도록 수정예정)
     const pages = [1,2,3,4,5]
 
@@ -30,6 +32,7 @@ export default function Pagination({ prePage, totalPages, onChange }:Props) {
                 <button
                     onClick={() => onChange(prePage - 1)}
                     disabled={!canPrev}
+                    className={!canPrev ? "pointer-events-none opacity-50" : ""}
                 >
                     <PaginationPrevious />
                 </button>
@@ -52,6 +55,7 @@ export default function Pagination({ prePage, totalPages, onChange }:Props) {
                 <button
                     onClick={() => onChange(prePage + 1)}
                     disabled={!canNext}
+                    className={!canNext ? "pointer-events-none opacity-50" : ""}
                 >
                     <PaginationNext />
                 </button>
