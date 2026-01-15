@@ -9,9 +9,6 @@ import { Separator } from '@/components/ui/separator';
 import InputStep from './InputStep';
 import ResultStep from './ResultStep';
 
-// -- 목데이터 불러오기
-// import { MOCK_AI_RESULT } from '@/mocks/aiAnalysis';
-
 // -- api 연결
 import { postAiAnalysis } from '@/apis/analysis';
 import { AiAnalysisResult } from '@/types/analysis';
@@ -86,7 +83,7 @@ export default function AiModal() {
             * {errorText}
           </div>
         )}
-        
+
         {step === 'input_level' && (
           <InputStep input={input} onChange={setInput} onClick={handleAnalysisRequest}/>
         )}

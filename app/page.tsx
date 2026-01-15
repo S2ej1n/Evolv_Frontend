@@ -5,8 +5,6 @@ import { useState, useMemo, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import ContentBox from "@/components/ContentBox";
 import Pagination from "@/components/Pagination";
-// -- 목데이터로 페이지네이션 테스트
-// import { MOCK_CUSTOMERS } from '@/mocks/customers';
 import CustomerTable from './_components/CustomerTable';
 import SearchBar from './_components/SearchBar';
 import { getPagination } from '@/util/pagination';
@@ -14,6 +12,8 @@ import { searchFilter } from '@/util/searchFilter';
 import type { Customer } from '@/types/customer';
 // -- api 호출
 import { useCustomerList } from '@/hooks/useCustormer';
+import Loading from '@/components/Loading';
+import Error from '@/components/Error';
 
 export default function Customers() {
   const router = useRouter();
@@ -50,8 +50,8 @@ export default function Customers() {
   }, [router]);
 
   // 로딩 순서
-  if (isLoading) return <div>로딩중...</div>;
-  if (isError) return <div>고객 리스트 조회 중 에러가 발생했습니다.</div>;
+  if (isLoading) return <Loading message='고객 리스트를 조회중입니다...' />;
+  if (isError) return <Error message='고객 리스트 조회 중 에러가 발생했습니다.'/>;
 
   return (
     <main>
