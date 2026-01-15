@@ -9,13 +9,11 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import InfoCard from "@/components/InfoCard";
 import { formatDate, getDaysAgo, formatDateTime, formatKRW } from "@/util/format";
 import AiModal from "./_components/AiModal";
-
-// -- 목데이터 사용
-// import {customer} from "@/mocks/detailCustomer";
-
 // -- api 연결 
 import { useParams } from "next/navigation";
 import { useCustomerDetail } from "@/hooks/useCustomerDetail";
+import Loading from '@/components/Loading';
+import Error from '@/components/Error';
 
 export default function Detail() {
   const params = useParams<{ id: string }>();
@@ -23,8 +21,8 @@ export default function Detail() {
 
   const { data: customer, isLoading, isError } = useCustomerDetail(customerId);
 
-  if (isLoading) return <div>로딩중...</div>;
-  if (isError || !customer) return <div>고객 상세 조회 중 에러가 발생했습니다. </div>;
+  if (isLoading) return <Loading message='고객의 상세 정보를 조회중입니다...' />;
+  if (isError || !customer) return <Error message='고객 상세 정보 조회 중 에러가 발생했습니다.'/>;
 
 
   return (
