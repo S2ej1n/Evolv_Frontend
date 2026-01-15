@@ -67,7 +67,14 @@ export default function Detail() {
           <InfoCard
             icon={<Mail className="h-5 w-5 text-muted-foreground" />}
             label="이메일"
-            value={customer.email}
+            value={
+               <a
+                  href={`mailto:${customer.email}`}
+                  className="underline underline-offset-2 hover:text-blue-600"
+                >
+                  {customer.email}
+                </a>
+            }
           />
           <InfoCard
             icon={<Phone className="h-5 w-5 text-muted-foreground" />}
@@ -76,11 +83,10 @@ export default function Detail() {
           />
         </div>
 
-
         <InfoCard className="mt-4 border border-blue-100 bg-gradient-to-r from-blue-50/70 to-sky-50/40 text-blue-600"
             icon={<FileText className="h-5 w-5 text-blue-600" />}
             label="메모"
-            value={customer.details.notes}
+            value={customer.details.notes ?? ''}
         />
       </ContentBox>
 
@@ -95,7 +101,18 @@ export default function Detail() {
           <InfoCard
             icon={<MapPin className="h-5 w-5 text-muted-foreground" />}
             label="주소"
-            value={customer.details.address}
+            value={
+              <a
+                href={`https://map.naver.com/v5/search/${encodeURIComponent(
+                  customer.details.address
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-blue-600 hover:font-bold"
+              >
+                {customer.details.address}
+              </a>
+            }
           />
 
           <div className="grid gap-4 md:grid-cols-3">
@@ -120,14 +137,17 @@ export default function Detail() {
 
       {/* 3) 식별자 및 메타 정보 */}
       <ContentBox>
-        <Collapsible defaultOpen>
+        <Collapsible>
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-semibold text-muted-foreground">
               식별자 및 메타 정보
             </h3>
 
             <CollapsibleTrigger asChild>
-              <Button variant="ghost" size="icon" className="rounded-xl cursor-pointer">
+              <Button variant="ghost" size="icon" 
+              className="rounded-xl cursor-pointer
+              transform transition-transform duration-300
+              data-[state=closed]:rotate-180">
                 <ChevronUp className="h-5 w-5 text-muted-foreground" />
               </Button>
             </CollapsibleTrigger>
