@@ -94,7 +94,18 @@ export default function Detail() {
           <InfoCard
             icon={<MapPin className="h-5 w-5 text-muted-foreground" />}
             label="주소"
-            value={customer.details.address}
+            value={
+              <a
+                href={`https://map.naver.com/v5/search/${encodeURIComponent(
+                  customer.details.address
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-blue-600 hover:font-bold"
+              >
+                {customer.details.address}
+              </a>
+            }
           />
 
           <div className="grid gap-4 md:grid-cols-3">
