@@ -10,7 +10,10 @@ import InputStep from './InputStep';
 import ResultStep from './ResultStep';
 
 // -- 목데이터 불러오기
-import { MOCK_AI_RESULT } from '@/mocks/aiAnalysis';
+// import { MOCK_AI_RESULT } from '@/mocks/aiAnalysis';
+
+// -- api 연결
+import { postAiAnalysis } from '@/apis/analysis';
 import { AiAnalysisResult } from '@/types/analysis';
 
 // 모달창의 UI를 단계별로 쪼개기 위해
@@ -33,17 +36,19 @@ export default function AiModal() {
   }, [step]);
 
   // 분석 요청 전송
-  const handleAnalysisRequest = () => {
-    // -- API 요청시 Input 내용을 body에 전송하게 수정해야함
+  const handleAnalysisRequest = async () => {
+    const input_value = input.trim() || '고객 이탈률 분석 요청';
 
     setStep('loading_level');
 
-    // -- 목업: 로딩 후 결과 세팅
-    // Time아웃도 설정필수
-    setTimeout(() => {
-      setResult(MOCK_AI_RESULT);
+    try {
+      const data = await postAiAnalysis(input_value);
+      setResult(data);
       setStep('result_level');
-    }, 6000);
+    } catch (e) {
+      console.log("에러가 발생했습니다");
+      setStep('input_level');
+    }
   };
 
   const handleReset = () => {
