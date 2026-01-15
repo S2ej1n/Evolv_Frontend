@@ -6,12 +6,14 @@ import { useRouter } from 'next/navigation';
 import ContentBox from "@/components/ContentBox";
 import Pagination from "@/components/Pagination";
 // -- 목데이터로 페이지네이션 테스트
-import { MOCK_CUSTOMERS } from '@/mocks/customers';
+// import { MOCK_CUSTOMERS } from '@/mocks/customers';
 import CustomerTable from './_components/CustomerTable';
 import SearchBar from './_components/SearchBar';
 import { getPagination } from '@/util/pagination';
 import { searchFilter } from '@/util/searchFilter';
 import type { Customer } from '@/types/customer';
+// -- api 호출
+import { useCustomerList } from '@/hooks/useCustormer';
 
 export default function Customers() {
   const router = useRouter();
@@ -23,10 +25,14 @@ export default function Customers() {
 
   const PAGE_SIZE = 9;
   
+
+  // 서버 연결
+  const { data: customers = [], isLoading, isError } = useCustomerList();
+
   // 검색어 필터링 - 새로운 data 배열 만들어 리턴
   const filterCustomers = useMemo(()=>{
-    return searchFilter(MOCK_CUSTOMERS, searchKey);
-  },[searchKey])
+    return searchFilter(customers, searchKey);
+  },[customers, searchKey])
 
   // 검색창에서 엔터를 처야 반영되게하는 함수
   const handleEnterSearchValue = () => {
@@ -43,6 +49,9 @@ export default function Customers() {
     router.push(`/customers/${row.customer_id}`);
   }, [router]);
 
+  // 로딩 순서
+  if (isLoading) return <div>로딩중...</div>;
+  if (isError) return <div>고객 리스트 조회 중 에러가 발생했습니다.</div>;
 
   return (
     <main>

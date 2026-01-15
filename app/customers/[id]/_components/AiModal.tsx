@@ -10,7 +10,10 @@ import InputStep from './InputStep';
 import ResultStep from './ResultStep';
 
 // -- 목데이터 불러오기
-import { MOCK_AI_RESULT } from '@/mocks/aiAnalysis';
+// import { MOCK_AI_RESULT } from '@/mocks/aiAnalysis';
+
+// -- api 연결
+import { postAiAnalysis } from '@/apis/analysis';
 import { AiAnalysisResult } from '@/types/analysis';
 
 // 모달창의 UI를 단계별로 쪼개기 위해
@@ -20,6 +23,7 @@ export default function AiModal() {
   const [step, setStep] = useState<Step>('input_level');
   const [input, setInput] = useState(''); // 전송할 때 기본값은 고객 이탈률 분석 요청
   const [result, setResult] = useState<AiAnalysisResult | null>(null);
+  const [errorText, setErrorText] = useState<string>(''); // 타임 초과시 에러메세지
 
   const title = useMemo(() => {
     if (step === 'input_level') return 'AI 분석 요청';
@@ -33,22 +37,27 @@ export default function AiModal() {
   }, [step]);
 
   // 분석 요청 전송
-  const handleAnalysisRequest = () => {
-    // -- API 요청시 Input 내용을 body에 전송하게 수정해야함
+  const handleAnalysisRequest = async () => {
+    setErrorText('');
+
+    const input_value = input.trim() || '고객 이탈률 분석 요청';
 
     setStep('loading_level');
 
-    // -- 목업: 로딩 후 결과 세팅
-    // Time아웃도 설정필수
-    setTimeout(() => {
-      setResult(MOCK_AI_RESULT);
+    try {
+      const data = await postAiAnalysis(input_value);
+      setResult(data);
       setStep('result_level');
-    }, 6000);
+    } catch (e) {
+      setErrorText('AI 분석 요청 중 오류가 발생했습니다. 다시 시도해주세요.')
+      setStep('input_level');
+    }
   };
 
   const handleReset = () => {
     setInput('');
     setResult(null);
+    setErrorText('');
     setStep('input_level');
   };
 
@@ -71,10 +80,18 @@ export default function AiModal() {
       >
         <Separator className=" bg-gray-200"/>
 
+        {/* 에러가 있을경우 */}
+        {errorText && (
+          <div className="text-left text-sm text-red-500">
+            * {errorText}
+          </div>
+        )}
+        
         {step === 'input_level' && (
           <InputStep input={input} onChange={setInput} onClick={handleAnalysisRequest}/>
         )}
 
+        
         {step === 'loading_level' && (
           <section className="text-sm">
             <div className="flex flex-col items-center justify-center py-10 gap-3">
@@ -88,7 +105,7 @@ export default function AiModal() {
         {step === 'result_level' && result && (
           <ResultStep result={result} onClick={handleReset} />
         )}
-
+        
       </Modal>
     </main>
   );
