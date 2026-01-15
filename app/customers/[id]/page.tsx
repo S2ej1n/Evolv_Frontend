@@ -119,14 +119,17 @@ export default function Detail() {
 
       {/* 3) 식별자 및 메타 정보 */}
       <ContentBox>
-        <Collapsible defaultOpen>
+        <Collapsible>
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-semibold text-muted-foreground">
               식별자 및 메타 정보
             </h3>
 
             <CollapsibleTrigger asChild>
-              <Button variant="ghost" size="icon" className="rounded-xl cursor-pointer">
+              <Button variant="ghost" size="icon" 
+              className="rounded-xl cursor-pointer
+              transform transition-transform duration-300
+              data-[state=closed]:rotate-180">
                 <ChevronUp className="h-5 w-5 text-muted-foreground" />
               </Button>
             </CollapsibleTrigger>
