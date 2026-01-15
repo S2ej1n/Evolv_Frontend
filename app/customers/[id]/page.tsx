@@ -67,7 +67,14 @@ export default function Detail() {
           <InfoCard
             icon={<Mail className="h-5 w-5 text-muted-foreground" />}
             label="이메일"
-            value={customer.email}
+            value={
+               <a
+                  href={`mailto:${customer.email}`}
+                  className="underline underline-offset-2 hover:text-blue-600"
+                >
+                  {customer.email}
+                </a>
+            }
           />
           <InfoCard
             icon={<Phone className="h-5 w-5 text-muted-foreground" />}
