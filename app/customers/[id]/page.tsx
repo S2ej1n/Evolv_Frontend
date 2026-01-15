@@ -1,4 +1,6 @@
 // 고객 상세 정보 조회
+'use client';
+
 import ContentBox from "@/components/ContentBox"
 import { Building2, Mail, Phone, FileText, MapPin, BriefcaseBusiness, DollarSign, Users, Calendar, ChevronUp } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
@@ -9,9 +11,21 @@ import { formatDate, getDaysAgo, formatDateTime, formatKRW } from "@/util/format
 import AiModal from "./_components/AiModal";
 
 // -- 목데이터 사용
-import {customer} from "@/mocks/detailCustomer";
+// import {customer} from "@/mocks/detailCustomer";
+
+// -- api 연결 
+import { useParams } from "next/navigation";
+import { useCustomerDetail } from "@/hooks/useCustomerDetail";
 
 export default function Detail() {
+  const params = useParams<{ id: string }>();
+  const customerId = params?.id;
+
+  const { data: customer, isLoading, isError } = useCustomerDetail(customerId);
+
+  if (isLoading) return <div>로딩중...</div>;
+  if (isError || !customer) return <div>고객 상세 조회 중 에러가 발생했습니다. </div>;
+
 
   return (
     <main>
