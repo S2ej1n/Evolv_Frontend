@@ -1,10 +1,13 @@
 // AI 분석 관련 API
-// 수정 더 헤야함
 
 import { axiosInstance } from './axios';
 import type { AiAnalysisResult } from '@/types/analysis';
 
-export const getCustomerList = async (): Promise<AiAnalysisResult> => {
-  const res = await axiosInstance.get('/ai-analysis');
+export const getAiAnalysis= async (input: string): Promise<AiAnalysisResult> => {
+  const res = await axiosInstance.post('/ai-analysis', 
+    { input },  // body로 전달하는 부분
+    { timeout: 80000 }
+  );
+
   return res.data.data;
 };
