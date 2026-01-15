@@ -129,7 +129,7 @@ export default function Detail() {
             </h3>
 
             <CollapsibleTrigger asChild>
-              <Button variant="ghost" size="icon" className="rounded-xl">
+              <Button variant="ghost" size="icon" className="rounded-xl cursor-pointer">
                 <ChevronUp className="h-5 w-5 text-muted-foreground" />
               </Button>
             </CollapsibleTrigger>
