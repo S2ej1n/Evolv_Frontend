@@ -76,11 +76,10 @@ export default function Detail() {
           />
         </div>
 
-
         <InfoCard className="mt-4 border border-blue-100 bg-gradient-to-r from-blue-50/70 to-sky-50/40 text-blue-600"
             icon={<FileText className="h-5 w-5 text-blue-600" />}
             label="메모"
-            value={customer.details.notes}
+            value={customer.details.notes ?? ''}
         />
       </ContentBox>
 
