@@ -23,6 +23,7 @@ export default function AiModal() {
   const [step, setStep] = useState<Step>('input_level');
   const [input, setInput] = useState(''); // 전송할 때 기본값은 고객 이탈률 분석 요청
   const [result, setResult] = useState<AiAnalysisResult | null>(null);
+  const [errorText, setErrorText] = useState<string>(''); // 타임 초과시 에러메세지
 
   const title = useMemo(() => {
     if (step === 'input_level') return 'AI 분석 요청';
@@ -37,6 +38,8 @@ export default function AiModal() {
 
   // 분석 요청 전송
   const handleAnalysisRequest = async () => {
+    setErrorText('');
+
     const input_value = input.trim() || '고객 이탈률 분석 요청';
 
     setStep('loading_level');
@@ -46,7 +49,7 @@ export default function AiModal() {
       setResult(data);
       setStep('result_level');
     } catch (e) {
-      console.log("에러가 발생했습니다");
+      setErrorText('AI 분석 요청 중 오류가 발생했습니다. 다시 시도해주세요.')
       setStep('input_level');
     }
   };
@@ -54,6 +57,7 @@ export default function AiModal() {
   const handleReset = () => {
     setInput('');
     setResult(null);
+    setErrorText('');
     setStep('input_level');
   };
 
@@ -76,10 +80,18 @@ export default function AiModal() {
       >
         <Separator className=" bg-gray-200"/>
 
+        {/* 에러가 있을경우 */}
+        {errorText && (
+          <div className="text-left text-sm text-red-500">
+            * {errorText}
+          </div>
+        )}
+        
         {step === 'input_level' && (
           <InputStep input={input} onChange={setInput} onClick={handleAnalysisRequest}/>
         )}
 
+        
         {step === 'loading_level' && (
           <section className="text-sm">
             <div className="flex flex-col items-center justify-center py-10 gap-3">
@@ -93,7 +105,7 @@ export default function AiModal() {
         {step === 'result_level' && result && (
           <ResultStep result={result} onClick={handleReset} />
         )}
-
+        
       </Modal>
     </main>
   );
